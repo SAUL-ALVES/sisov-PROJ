@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SISOV - Produção</title>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/pagina_producao.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="../js/config.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="../js/functions.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <div class="menu-hamburguer" onclick="toggleMenu()">&#9776;</div>
+        <h1 id="title-header">SISOV - Sistema de Rastreamento de Ovinos</h1>
+    </header>
+  
+    <nav id="menu-lateral" class="menu-lateral">
+        <button class="menu-fechar" onclick="toggleMenu()">×</button>
+        <h2>Painel de Ferramentas</h2>
+        <ul>
+            <li><img src="../imgs/fazendeiro.png" alt="Fazendeiro"/><a href="produtor.html">Informações do Produtor</a></li>
+            <li><img src="../imgs/propriedade.png" alt="Propriedade"/><a href="propriedade.html">Identificação da Propriedade</a></li>
+            <li><img src="../imgs/rebanho.png" alt="Rebanho"/><a href="rebanho.html">Dados do Rebanho</a></li>
+            <li><img src="../imgs/medkit_vacina.png" alt="Vacinação"/><a href="saude.html">Histórico de Saúde e Manejo</a></li>
+            <li><img src="../imgs/vegetais-comida.png" alt="Alimentação"/><a href="alimentacao.html">Alimentação e Suplementação</a></li>
+            <li><img src="../imgs/rebanho2.png" alt="Movimentação"/><a href="movimentacao.html">Movimentação dos Animais</a></li>
+            <li><img src="../imgs/reproducao.png" alt="Reprodução"/><a href="reproducao.html">Reprodução</a></li>
+            <li><img src="../imgs/rastreamento.png" alt="Rastreamento"/><a href="rastreamento.html">Rastreamento e Certificação</a></li>
+            <li><img src="../imgs/carne.png" alt="Produção de Carne"/><a href="carne.html">Produção de Carne</a></li>
+            <li><img src="../imgs/documentacao.png" alt="Documentação"/><a href="documentacao.html">Documentação Legal e Compliance</a></li>
+            <li><img src="../imgs/seguranca.png" alt="Segurança"/><a href="seguranca.html">Segurança e Controle de Acesso</a></li>
+            <li><a href="informacoes.html">Informações Adicionais</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <h1 class="welcome-quote">Bem-Vindo(a), João Silva!<span class="welcome-quote-user-name"></span>!</h1>
+
+        <section class="status-rebanho">
+            <h2 class="section-title">Status do Rebanho</h2>
+            <div class="status-container">
+                <div class="status-item">
+                    <img src="../imgs/home/cabra_home.png" alt="">
+                    <h3>Total de Ovinos</h3>
+                    <p id="total-ovinos">24</p>
+                </div>
+                <div class="status-item">
+                    <img src="../imgs/home/cuidados-de-saude.png" alt="">
+                    <h3>Saúde Geral</h3>
+                    <p id="saude-geral">97% saudáveis</p>
+                </div>
+                <div class="status-item">
+                    <img src="../imgs/home/vacinado.png" alt="">
+                    <h3>Última Vacinação</h3>
+                    <p id="ultima-vacinacao">Rex: (SISOV7364)</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="management" class="section">
+            <div class="container">
+                <h2 class="section-title">Gerenciamento de Rebanho</h2>
+                <p>Gerencie seu rebanho, incluindo cadastro de novos ovinos e controle de saúde.</p>
+                <button onclick="manageHerd()">Gerenciar Rebanho</button>
+            </div>
+        </section>
+
+        <section class="ferramentas-principais">
+            <h2 class="section-title">Ferramentas e Funcionalidades</h2>
+            <div class="btn-container">
+                <a href="produtor.html" class="btn-ferramenta">Cadastro de Produtores</a>
+                <a href="rebanho.html" class="btn-ferramenta">Gerenciamento do Rebanho</a>
+                <a href="rastreamento.html" class="btn-ferramenta">Rastreamento por QR Code</a>
+                <a href="saude.html" class="btn-ferramenta">Histórico de Saúde</a>
+                <a href="movimentacao.html" class="btn-ferramenta">Movimentação dos Animais</a>
+            </div>
+        </section>
+
+        <!--
+        <section id="reqs_in_section" class="section">
+            <div class="container">
+                <h2>Entrada de Requisições RFID</h2>
+            </div>
+        </section>
+        As entradas de produção serão inseridas aqui dinamicamente -->
+
+        <section id="production" class="section">
+            <div class="container">
+                <h2 class="section-title">Registro de Produção</h2>
+                <form id="productionForm" onsubmit="return handleProduction(event)">
+                    <div class="form-group">
+                        <label for="date">Data:</label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="amount">Quantidade de Carne (kg):</label>
+                        <input type="number" id="amount" name="amount" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="animalId">ID do Animal:</label>
+                        <input type="text" id="animalId" name="animalId" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="weight">Peso do Animal (kg):</label>
+                        <input type="number" id="weight" name="weight" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="remarks">Observações:</label>
+                        <textarea id="remarks" name="remarks" rows="4"></textarea>
+                    </div>
+                    <button type="submit">Registrar Produção</button>
+                </form>
+                
+
+                <h3>Produções Recentes</h3>
+                <table id="productionTable">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Quantidade (kg)</th>
+                            <th>ID do Animal</th>
+                            <th>Peso do Animal (kg)</th>
+                            <th>Observações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="report" class="section">
+            <div class="container">
+                <h2>Relatórios</h2>
+                <p>Veja os relatórios detalhados sobre a produção de carne de ovinos.</p>
+                <button onclick="generateReport()">Gerar Relatório</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 SISOV - Sistema de Rastreamento de Ovinos. Todos os direitos reservados.</p>
+    </footer>
+
+    <!--
+    <script>
+        // Defina seu IP local manualmente (ou utilize a função de obter IP que você pode ter)
+        // Arquivo config.js
+        var localIpAddress = '192.168.0.13'; // Substitua pelo IP correto
+
+        // Use esse IP para suas requisições
+        // Atualize as chamadas para localIPAddress
+        fetch(`http://${localIpAddress}:3001/usuarios/` + localStorage.getItem('userId'))
+            .then(response => response.json())
+            .then(data => {
+                var nome_usuario = data.informacoes_produtor.nome;
+                document.getElementsByClassName('welcome-quote-user-name')[0].textContent = nome_usuario;
+            })
+            .catch(error => console.error('Erro ao buscar os dados:', error));
+
+        fetch(`http://${localIpAddress}:3001/usuarios/` + localStorage.getItem('userId'))
+            .then(response => response.json())
+            .then(data => {
+                const totalOvinos = data.animais.length;
+                document.getElementById('total-ovinos').textContent = totalOvinos;
+
+                const saudaveis = data.animais.filter(animal => animal.historico_saude.historico_doencas === "Nenhuma doença registrada").length;
+                const percentualSaudaveis = ((saudaveis / totalOvinos) * 100).toFixed(2);
+                document.getElementById('saude-geral').textContent = `${percentualSaudaveis}% saudáveis`;
+
+                const vacinacoes = data.animais.map(animal => animal.historico_saude.vacinacoes);
+                const ultimaVacinacao = vacinacoes.length > 0 ? vacinacoes[0] : "Nunca vacinado";
+                document.getElementById('ultima-vacinacao').textContent = ultimaVacinacao;
+            })
+            .catch(error => console.error('Erro ao buscar os dados:', error));
+
+    </script>
+    -->
+        
+
+    <script>
+        // Função para registrar a produção
+        function handleProduction(event) {
+            event.preventDefault(); // Previne o envio do formulário
+            const date = document.getElementById("date").value;
+            const amount = document.getElementById("amount").value;
+            const animalId = document.getElementById("animalId").value;
+            const weight = document.getElementById("weight").value;
+            const remarks = document.getElementById("remarks").value;
+
+            // Adiciona a nova entrada à tabela
+            const tableBody = document.getElementById("productionTable").getElementsByTagName('tbody')[0];
+            const newRow = tableBody.insertRow();
+
+            newRow.insertCell(0).textContent = date;
+            newRow.insertCell(1).textContent = amount;
+            newRow.insertCell(2).textContent = animalId;
+            newRow.insertCell(3).textContent = weight;
+            newRow.insertCell(4).textContent = remarks;
+
+            // Limpa o formulário
+            document.getElementById("productionForm").reset();
+        }
+
+        // Função para gerar o relatório em PDF
+        function generateReport() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            doc.text("Relatório de Produção de Carne de Ovinos", 10, 10);
+            doc.text("Produções Recentes:", 10, 20);
+
+            const tableBody = document.getElementById("productionTable").getElementsByTagName('tbody')[0];
+            const rows = tableBody.getElementsByTagName('tr');
+            let y = 30;
+
+            for (let row of rows) {
+                const cells = row.getElementsByTagName('td');
+                const rowData = [];
+                for (let cell of cells) {
+                    rowData.push(cell.textContent);
+                }
+                doc.text(rowData.join(" | "), 10, y);
+                y += 10;
+            }
+
+            doc.save("relatorio_producao_ovinos.pdf");
+        }
+
+        // Função para gerenciar rebanho
+        function manageHerd() {
+            window.location.href = "rebanho.html"; // Navega para a página de gerenciamento do rebanho
+        }
+    </script>
+</body>
+</html>
