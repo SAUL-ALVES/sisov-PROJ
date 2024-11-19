@@ -4,7 +4,8 @@ const {
     getAnimalsByProducerId, 
     getAnimalById, 
     obterAnimal,
-    adicionarAnimal // Certifique-se de importar esta função
+    adicionarAnimal,
+    atualizarAnimal
 } = require('../controllers/animalController');
 
 const autenticarToken = require('../middlewares/authMiddleware');
@@ -20,10 +21,12 @@ router.post('/:idProdutor/animais', autenticarToken, adicionarAnimal);
 // Rota para obter um animal específico de um produtor
 router.get('/:idProdutor/animais/:idAnimal', autenticarToken, getAnimalById);
 
-// Rota para gerar QR Code para um animal (rota protegida)
-router.get('/:idProdutor/animais/:animalId/qrcode', autenticarToken, gerarQRCode); // Corrigido aqui
+// Rota para atualizar um animal específico de um produtor
+router.patch('/:idProdutor/animais/:idAnimal', autenticarToken, atualizarAnimal);
 
-// Rota para buscar informações de um animal pelo ID (rota protegida)
-router.get('/:animalId', autenticarToken, obterAnimal);
+
+// Rota para gerar QR Code para um animal (rota protegida)
+router.get('/:idProdutor/animais/:animalId/qrcode', autenticarToken, gerarQRCode);
+// Corrigido aqui
 
 module.exports = router;
