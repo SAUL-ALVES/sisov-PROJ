@@ -9,8 +9,6 @@
     <link rel="stylesheet" href="../css/registro.css">
 </head>
 <body>
-    
-
     <div class="container">
         <h1>Cadastro de Usuário</h1>
         <form id="registerForm" class="form-style">
@@ -18,7 +16,7 @@
             <input type="text" id="newUsername" required placeholder="Digite seu nome de usuário">
         
             <label for="newPassword">Senha:</label>
-            <input type="password" id="newPassword" required placeholder="Digite sua senha">
+            <input type="password" id="newPassword" required placeholder="Digite sua senha" minlength="6">
         
             <button type="submit">Cadastrar</button>
         </form>        
@@ -27,39 +25,44 @@
 
     <script>
         document.getElementById('registerForm').addEventListener('submit', function(event) {
-          event.preventDefault();
-      
-          const username = document.getElementById('newUsername').value;
-          const password = document.getElementById('newPassword').value;
-      
-          // Verificar se os campos não estão vazios
-          if (!username || !password) {
-            alert('Por favor, preencha todos os campos.');
-            return;
-          }
-      
-          // Enviar os dados para o backend
-          fetch('http://192.168.1.234:8080/api/auth/register', {  // Verifique o caminho
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ username, password })
-            })
-          .then(response => response.json())
-          .then(data => {
-            if (data.message === 'Usuário registrado com sucesso!') {
-              alert('Cadastro realizado com sucesso!');
-              window.location.href = '../index.html#login'; // Redireciona para a página de login
-            } else {
-              alert('Erro ao cadastrar: ' + data.message);
+            event.preventDefault();
+        
+            const username = document.getElementById('newUsername').value.trim();
+            const password = document.getElementById('newPassword').value.trim();
+        
+            // Validação
+            if (!username || !password) {
+                alert('Por favor, preencha todos os campos.');
+                return;
             }
-          })
-          .catch(error => {
-            console.error('Erro ao enviar o cadastro:', error);
-            alert('Erro ao tentar se cadastrar.');
-          });
+            if (password.length < 6) {
+                alert('A senha deve ter no mínimo 6 caracteres.');
+                return;
+            }
+
+            // URL dinâmica (local vs. produção)
+            const API_URL = window.location.hostname === 'localhost' 
+                ? 'http://localhost:3000' 
+                : 'https://sisov.vercel.app'; 
+        
+            fetch(`${API_URL}/api/auth/register`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            })
+            .then(response => {
+                if (!response.ok) throw new Error('Erro no servidor');
+                return response.json();
+            })
+            .then(data => {
+                alert(data.message || 'Cadastro realizado com sucesso!');
+                window.location.href = '../index.html#login';
+            })
+            .catch(error => {
+                console.error('Erro detalhado:', error);
+                alert('Erro ao cadastrar: ' + (error.message || 'Servidor indisponível'));
+            });
         });
-      </script>      
+    </script>      
 </body>
 </html>
