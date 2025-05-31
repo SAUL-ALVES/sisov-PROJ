@@ -1,8 +1,8 @@
 /* Variáveis de Cor */
 :root {
-    --dark-color: #2c3e50; /* Cor escura para o menu lateral */
-    --white-color: #ecf0f1; /* Cor branca para o texto */
-    --secondary-color: #3498db; /* Cor secundária para destaques */
+    --dark-blue: #0a538f;  /* Alterado para azul escuro como solicitado */
+    --white-color: #ecf0f1;
+    --secondary-color: #3498db;
 }
 
 /* Estilos Globais */
@@ -10,7 +10,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4; /* Cor de fundo */
+    background-color: #f4f4f4;
 }
 
 main {
@@ -20,8 +20,8 @@ main {
 /* Título do cabeçalho */
 #title-header {
     font-size: 1.8em;
-    text-align: center; /* Centraliza o título */
-    color: var(--white-color); /* Cor do texto */
+    text-align: center;
+    color: var(--white-color);
 }
 
 /* Menu */
@@ -83,7 +83,7 @@ main {
     padding: 10px 0;
     display: block;
     transition: background-color 0.3s;
-    border-radius: 5px; /* Arredonda os cantos */
+    border-radius: 5px;
 }
 
 .menu-lateral ul li a:hover {
@@ -94,7 +94,7 @@ main {
 .welcome-quote {
     text-align: center;
     font-size: 1.6em;
-    margin: 20px 0; /* Margem para espaçamento */
+    margin: 20px 0;
 }
 
 /* Títulos de seções */
@@ -131,17 +131,17 @@ main {
     max-width: 300px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
-    transition: transform 0.3s, box-shadow 0.3s; /* Adiciona sombra ao hover */
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .status-item:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Aumenta a sombra ao passar o mouse */
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
 }
 
 /* Estilo do Formulário */
 .form-group {
-    margin-bottom: 15px; /* Espaçamento entre os grupos */
+    margin-bottom: 15px;
 }
 
 input[type="date"],
@@ -152,7 +152,7 @@ textarea {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    box-sizing: border-box; /* Inclui padding e borda na largura total */
+    box-sizing: border-box;
 }
 
 button {
@@ -163,15 +163,14 @@ button {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
-    margin-top: 18px; /* Efeitos de transição */
+    margin-top: 18px;
 }
 
 button:hover {
-    background-color: darken(var(--secondary-color), 10%); /* Cor de fundo ao passar o mouse */
+    background-color: #b3d6ee;
     transform: scale(1.05);
     color: #2c3e50;
     border: 2px solid #2c3e50;
-    border-radius:2px solid #2c3e50; /* Aumenta ligeiramente o botão ao passar o mouse */
 }
 
 #productionForm {
@@ -181,30 +180,25 @@ button:hover {
 /* Tabela de Produção */
 #productionTable {
     width: 100%;
-    border-collapse: collapse; /* Remove espaçamento entre células */
+    border-collapse: collapse;
     margin-top: 20px;
 }
 
 #productionTable th,
 #productionTable td {
-    border: 1px solid #ddd; /* Borda para células */
+    border: 1px solid #ddd;
     padding: 8px;
-    text-align: center; /* Alinhamento central */
+    text-align: center;
 }
 
 #productionTable th {
     background-color: var(--secondary-color);
-    color: white; /* Cor do texto do cabeçalho */
+    color: white;
 }
 
 .status-item img {
     width: 60px;
     margin-bottom: 8px;
-}
-
-.btn-container {
-    padding: 8px;
-    margin: 8px 0;
 }
 
 .card-container {
@@ -238,32 +232,124 @@ footer {
     bottom: 0;
 }
 
-.menu-lateral ul {
-    list-style: none;
-    padding: 0 8px;
+/* Seção de Ferramentas Principais - Alterações para responsividade */
+.ferramentas-principais {
+    padding: 20px;
+    margin-left: 0;
+    transition: margin-left 0.3s ease;
 }
 
-.menu-lateral ul li {
-    margin: 15px 0;
+.menu-lateral.ativo ~ .ferramentas-principais {
+    margin-left: 300px;
+}
+
+.btn-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    padding: 0 10px;
+    margin: 20px 0;
+}
+
+.btn-ferramenta {
+    background-color: #1d75b1;
+    color: white;
+    text-align: center;
+    padding: 20x 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
     display: flex;
     align-items: center;
+    justify-content: center;
+    min-height: 60px;
 }
 
-.menu-lateral ul li img {
-    width: 30px;
-    height: 30px;
-    margin-right: 10px;
+.btn-ferramenta:hover {
+    background-color: #082a41;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
-.menu-lateral ul li a {
-    color: var(--white-color);
-    text-decoration: none;
-    padding: 10px 0;
-    display: block;
-    transition: background-color 0.3s;
-    border-radius: 5px; /* Arredonda os cantos */
+/* RESPONSIVIDADE PARA TELAS MENORES */
+@media (max-width: 768px) {
+    /* Ajuste no menu lateral */
+    .menu-lateral {
+        width: 100%;
+        left: -100%;
+    }
+
+    .menu-lateral.ativo {
+        left: 0;
+    }
+
+    .menu-lateral.ativo ~ .ferramentas-principais {
+        margin-left: 0;
+    }
+
+    .menu-fechar {
+        top: 15px;
+        right: 15px;
+    }
+
+    /* Container de status e cards em coluna*/ 
+    .status-container,
+    .card-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .status-item,
+    .card {
+        width: 90%;
+        max-width: 100%;
+    }
+
+    /* Formulário responsivo*/ 
+    form {
+        width: 90%;
+        margin: auto;
+    }
+
+    /* Botões mais largos */
+    button {
+        width: 100%;
+    }
+
+    /* Tabela com rolagem horizontal*/ 
+    #productionTable {
+        display: block;
+        overflow-x: auto;
+        width: 100%;
+    }
+
+    #productionTable table {
+        min-width: 600px;
+    }
+
+    /* Centralizar textos de título */
+    #title-header,
+    .welcome-quote,
+    .section-title {
+        font-size: 1.2em;
+        padding: 0 10px;
+    }
+
+    /* Ajustes específicos para a seção de ferramentas */
+    .btn-container {
+        grid-template-columns: 1fr;
+        padding: 0 5px;
+    }
+
+    .btn-ferramenta {
+        width: 100%;
+        margin: 5px 0;
+    }
 }
 
-.menu-lateral ul li a:hover {
-    background-color: var(--secondary-color);
+@media (min-width: 769px) and (max-width: 1024px) {
+    .btn-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
