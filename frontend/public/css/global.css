@@ -1,9 +1,13 @@
 :root {
     --primary-color: #005f73;
-    --dark-color: #2c3e50; /* Cor escura para o menu lateral */
-    --white-color: #ecf0f1; /* Cor branca para o texto */
-    --secondary-color: #3498db; /* Cor secundária para destaques */
+    --dark-color: #2c3e50;
+    --white-color: #ecf0f1;
+    --secondary-color: #3498db;
+
+    --background-color: #f4f4f4;
+    --text-color: #333;
 }
+
 
 * {
     margin: 0;
@@ -168,3 +172,4 @@ footer {
         width: 80%;
     }
 }
+
