@@ -59,3 +59,19 @@ async function loginReq(event) {
 
 // Adicionar o listener de submit ao formulário
 document.getElementById('login-form').addEventListener('submit', loginReq);
+
+//Sumir com o header ao rolar para baixo
+let lastScrollTop = 0;
+    const header = document.querySelector("header");
+
+    window.addEventListener("scroll", () => {
+        const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+        if (currentScroll > lastScrollTop && currentScroll > 50) {
+            header.classList.add("hide"); // Esconde ao descer
+        } else if (currentScroll < lastScrollTop) {
+            header.classList.remove("hide"); // Mostra ao subir
+        }
+
+        lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+    });
